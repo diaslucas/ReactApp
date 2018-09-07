@@ -1,11 +1,34 @@
 import React, { Component } from 'react';
 
+function Alert(props){
+  switch (props.alertType) {
+    case "success":
+      return (
+                <div className={"alert alert-success " + props.className} role="alert">
+                  User Added!
+                </div>
+              );
+      break;
+  
+    case "error":
+    return (
+              <div className={"alert alert-danger " + props.className} role="alert">
+                Something went wrong!
+              </div>
+            );
+      break;
+  }
+}
+
 class AddUser extends Component {
   constructor(props){
     super(props);
     this.state = {
       firstName: '',
-      lastName: ''
+      lastName: '',
+      userAdded: false,
+      errorAddingUser: false,
+      alertClass: 'alert-hidden'
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -38,13 +61,39 @@ class AddUser extends Component {
         'Content-Type': 'application/json'
       }
     }).then(res => res.json())
-      .then(response => console.log('Success:', JSON.stringify(response)))
-      .catch(error => console.error('Error:', error));
+      .then((response) => {
+        this.setState({userAdded: true, errorAddingUser: false, alertClass: 'alert-shown'});
+        setTimeout(() => {
+          this.setState({userAdded: false, errorAddingUser: false, alertClass: 'alert-hidden'});
+        }, 3000);
+      })
+      .catch((error) => {
+        this.setState({userAdded: true, errorAddingUser: true});
+        setTimeout(() => {
+          this.setState({userAdded: false, errorAddingUser: false});
+        }, 3000);
+      })
+        
   }
 
   render() {
+    const userAdded = this.state.userAdded;
+    const errorAddingUser = this.state.errorAddingUser;
+    let alert;
+
+    // if(userAdded){
+    //   if(errorAddingUser) {
+    //     <Alert alertType={"error"} className={"alert-shown"} />;
+    //   } else {
+    //     alert = <Alert alertType={"success"} />;
+    //   }
+    // }
+
+    alert = <Alert alertType={"success"} className={this.state.alertClass} />;
+
     return (
       <div className="container">
+      {alert}
         <div className="row">
           <div className="col-8">
             <h3>Add user</h3>
