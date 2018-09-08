@@ -1,33 +1,20 @@
 import React, { Component } from 'react';
 
-function Alert(props){
-  switch (props.alertType) {
-    case "success":
-      return (
-                <div className={"alert alert-success " + props.className} role="alert">
-                  User Added!
-                </div>
-              );
-      break;
-  
-    case "error":
-    return (
-              <div className={"alert alert-danger " + props.className} role="alert">
-                Something went wrong!
-              </div>
-            );
-      break;
-  }
+function Alert(props) {
+  return (
+    <div className={"alert " + props.className} role="alert">
+      User Added!
+          </div>
+  );
 }
 
 class AddUser extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      firstName: '',
-      lastName: '',
-      userAdded: false,
-      errorAddingUser: false,
+      name: '',
+      age: '',
+      salary: '',
       alertClass: 'alert-hidden'
     };
 
@@ -44,70 +31,71 @@ class AddUser extends Component {
     });
   }
 
-  handleSubmit(event){
+  handleSubmit(event) {
     event.preventDefault();
     const user = {};
-    user.name = this.state.firstName + " " + this.state.lastName;
-    user.job = "Web Developer";
+    user.name = this.state.name;
+    user.age = this.state.age;
+    user.salary = this.state.salary;
     this.addUser(user);
   }
 
-  addUser(user){
-    const data = {name:"Lucas KLG",salary:"80000",age:"23"};
+  addUser(user) {
     fetch("	http://dummy.restapiexample.com/api/v1/create", {
-      method: 'POST', 
-      body: JSON.stringify(data), 
+      method: 'POST',
+      body: JSON.stringify(user),
       headers: {
         'Content-Type': 'application/json'
       }
     }).then(res => res.json())
       .then((response) => {
-        this.setState({userAdded: true, errorAddingUser: false, alertClass: 'alert-shown'});
+        this.setState({ alertClass: 'alert-success alert-shown' });
         setTimeout(() => {
-          this.setState({userAdded: false, errorAddingUser: false, alertClass: 'alert-hidden'});
-        }, 3000);
+          this.setState({ alertClass: 'alert-hidden' });
+        }, 1500);
+        this.clearFields();
       })
       .catch((error) => {
-        this.setState({userAdded: true, errorAddingUser: true});
+        this.setState({ alertClass: 'alert-danger alert-shown' });
         setTimeout(() => {
-          this.setState({userAdded: false, errorAddingUser: false});
-        }, 3000);
+          this.setState({ alertClass: 'alert-hidden' });
+        }, 1500);
+        this.clearFields();
       })
-        
+  }
+
+  clearFields() {
+    this.setState({
+      name: '',
+      age: '',
+      salary: ''
+    });
   }
 
   render() {
-    const userAdded = this.state.userAdded;
-    const errorAddingUser = this.state.errorAddingUser;
-    let alert;
-
-    // if(userAdded){
-    //   if(errorAddingUser) {
-    //     <Alert alertType={"error"} className={"alert-shown"} />;
-    //   } else {
-    //     alert = <Alert alertType={"success"} />;
-    //   }
-    // }
-
-    alert = <Alert alertType={"success"} className={this.state.alertClass} />;
-
     return (
       <div className="container">
-      {alert}
+        <Alert className={this.state.alertClass} />
         <div className="row">
           <div className="col-8">
             <h3>Add user</h3>
             <form onSubmit={this.handleSubmit}>
               <div className="form-group">
                 <label>
-                  First Name:
-                  <input type="text" name="firstName" value={this.state.firstName} onChange={this.handleChange} className="form-control" />
+                  Name:
+                  <input type="text" name="name" value={this.state.name} onChange={this.handleChange} className="form-control" />
                 </label>
               </div>
               <div className="form-group">
                 <label>
-                  Last Name:
-                  <input type="text" name="lastName" value={this.state.lastName} onChange={this.handleChange} className="form-control" />
+                  Age:
+                  <input type="number" name="age" value={this.state.age} onChange={this.handleChange} className="form-control" />
+                </label>
+              </div>
+              <div className="form-group">
+                <label>
+                  Salary:
+                  <input type="text" name="salary" value={this.state.salary} onChange={this.handleChange} className="form-control" />
                 </label>
               </div>
               <input type="submit" value="Submit" className="btn btn-success" />
