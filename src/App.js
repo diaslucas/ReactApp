@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
 import AddUser from './Components/AddUser';
 import UsersList from './Components/UsersList';
+import TestForm from './Components/TestForm';
 
 
 class App extends Component {
@@ -11,7 +12,8 @@ class App extends Component {
     this.state = {
       menus: [
         { menuName: 'Users List', menuLink: '/', active: true },
-        { menuName: 'Add User', menuLink: '/AddUser', active: false }
+        { menuName: 'Add User', menuLink: '/AddUser', active: false },
+        { menuName: 'Test', menuLink: '/Test', active: false }
       ]
     }
   }
@@ -55,6 +57,7 @@ class App extends Component {
 
           <Route exact path='/' component={UsersList} />
           <Route path='/AddUser' component={AddUser} />
+          <Route path='/Test' component={TestForm} />
         </div>
       </Router>
     );
