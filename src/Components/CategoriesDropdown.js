@@ -9,6 +9,7 @@ export default class CategoriesDropdown extends Component {
 
       selectedCategorie: "1",
       selectedTitle: "1",
+      selectedAuthor: "J.K. Rowling",
 
       Categories: [
         {
@@ -24,7 +25,7 @@ export default class CategoriesDropdown extends Component {
           categorieID: "2",
           categorieName: "Movies",
           Titles: [
-            { TitleID: "1", TitleName: "Matrix", Author: "Wackowisky Brothers" },
+            { TitleID: "1", TitleName: "Matrix", Author: "Wachowski Brothers" },
             { TitleID: "2", TitleName: "Fight Club", Author: "David Fincher" },
             { TitleID: "3", TitleName: "The Departed", Author: "Martin Scorsese" }
           ]
@@ -76,6 +77,12 @@ export default class CategoriesDropdown extends Component {
            <select className="form-control" name="selectedTitle" value={selectedTitle} onChange={this.handleChange.bind(this)}>
               {titleItems}
             </select>
+          </label>
+        </div>
+        <div className="form-group">
+          <label>
+            Author / Director:
+          <input type="text" className="form-control" value={"test"} disabled/>
           </label>
         </div>
       </div>

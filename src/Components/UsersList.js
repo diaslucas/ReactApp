@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 const paginationRange = (from, to, current, step = 1) => {
   let i = from;
@@ -96,6 +97,7 @@ class UsersList extends Component {
                     <th scope="col">First Name</th>
                     <th scope="col">Last Name</th>
                     <th scope="col">Avatar</th>
+                    <th scope="col">User Detail</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -105,6 +107,7 @@ class UsersList extends Component {
                       <td>{user.first_name}</td>
                       <td>{user.last_name}</td>
                       <td><img src={user.avatar} alt={user.first_name} className="rounded-circle" width="50" height="50" /></td>
+                      <td><Link to={"UserDetail/" + user.id} exact>User Detail</Link></td>
                     </tr>
                   ))}
                 </tbody>

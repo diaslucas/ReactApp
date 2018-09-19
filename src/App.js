@@ -3,6 +3,7 @@ import { Route, NavLink, BrowserRouter as Router } from 'react-router-dom';
 import AddUser from './Components/AddUser';
 import UsersList from './Components/UsersList';
 import TestForm from './Components/TestForm';
+import UserDetail from './Components/UserDetail';
 
 
 class App extends Component {
@@ -34,7 +35,7 @@ class App extends Component {
           <ul className="nav">
             {menus.map((menu, index) => {
               return (
-                <this.Menus
+                <this.Menus  
                   key={index}
                   link={menu.menuLink}
                   text={menu.menuName}
@@ -45,6 +46,7 @@ class App extends Component {
           <Route exact path='/' component={UsersList} />
           <Route path='/AddUser' component={AddUser} />
           <Route path='/Test' component={TestForm} />
+          <Route path='/UserDetail/:userID' component={UserDetail} />
         </div>
       </Router>
     );
