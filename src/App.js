@@ -4,6 +4,7 @@ import AddUser from './Components/AddUser';
 import UsersList from './Components/UsersList';
 import TestForm from './Components/TestForm';
 import UserDetail from './Components/UserDetail';
+import Sudoku from './Components/Sudoku/Sudoku';
 
 
 class App extends Component {
@@ -14,7 +15,8 @@ class App extends Component {
       menus: [
         { menuName: 'Users List', menuLink: '/' },
         { menuName: 'Add User', menuLink: '/AddUser' },
-        { menuName: 'Test', menuLink: '/Test' }
+        { menuName: 'Test', menuLink: '/Test' },
+        { menuName: 'Sudoku', menuLink: '/Sudoku' }
       ]
     }
   }
@@ -47,6 +49,7 @@ class App extends Component {
           <Route path='/AddUser' component={AddUser} />
           <Route path='/Test' component={TestForm} />
           <Route path='/UserDetail/:userID' component={UserDetail} />
+          <Route path='/Sudoku' component={Sudoku} />
         </div>
       </Router>
     );
