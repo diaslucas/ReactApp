@@ -2,23 +2,29 @@ import React, { Component } from 'react'
 
 export default class Field extends Component {
 
-    constructor(props) {
-        super(props)
+  constructor(props) {
+    super(props)
 
-        this.state = {
-          value: ''
-        }
-
-        this.handleChange = this.handleChange.bind(this);
+    this.state = {
+      value: ''
     }
 
-    handleChange(event){
-      this.setState({value: event.target.value});
-    }
+    this.handleChange = this.handleChange.bind(this);
+  }
 
-    render() {
-        return (
-            <input type="text" value={this.state.value} className="sudoku-input" maxLength="1" onChange={this.handleChange} />
-        )
+  handleChange(event) {
+    this.setState({ value: event.target.value });
+  }
+
+  render() {
+    const { value } = this.state;
+    let cssClass = '';
+    if (value != '' && value != this.props.correctValue) {
+      cssClass = 'border border-danger';
+
     }
+    return (
+      <input type="text" value={this.state.value} className={"sudoku-input " + cssClass} maxLength="1" onChange={this.handleChange} />
+    )
+  }
 }
