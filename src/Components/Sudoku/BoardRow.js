@@ -1,15 +1,6 @@
 import React, { Component } from 'react';
 import Field from './Field';
 
-
-// function Square(props) {
-//   return (
-//     <button className="square" onClick={props.onClick}>
-//       {props.value}
-//     </button>
-//   );
-// }
-
 export default class BoardRow extends Component {
  
   render() {
@@ -17,7 +8,7 @@ export default class BoardRow extends Component {
     let row = this.props.row;
     let start = 0;
     let end = 0;
-    start = (row === 1 ? 0 : (row * 8  ) - 1 );
+    start = (row === 0 ? 0 : row * 8  + row);
     end = start + 8;
     let newFields = [];
     fields.forEach((element, index) => {
@@ -26,22 +17,15 @@ export default class BoardRow extends Component {
       }
     });
     
+    const boardResults = this.props.boardResults;
+    let x =1;
     return (
-      // <div className="board-row">
-      //   {newFields.map((field, index) => {
-      //     if(field !== null){
-      //       return <span className="default-value" key={index}>{field}</span>
-      //     } else {
-      //         return <Field key={index} correctValue={this.props.boardResults[index]} />
-      //     }
-      //   })}
-      // </div>
       <tr>
       {newFields.map((field, index) => {
-        if(field !== null){
+        if(field !== 0){
           return <td><div className="sudoku-input default-value" key={index}>{field}</div></td>
         } else {
-            return <td><Field key={index} correctValue={this.props.boardResults[index]} /></td>
+            return <td><Field key={index} correctValue={this.props.boardResults[index]} ind={index} /></td>
         }
       })}
     </tr>
